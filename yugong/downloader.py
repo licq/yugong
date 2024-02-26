@@ -10,6 +10,8 @@ class Downloader:
         self.output_dir = Path(output_dir)
 
     def download(self, url):
+        if self.check_exist(url):
+            return self.parse_info(self.dir(url))
         with ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(self._download, url)
             future.result()
@@ -54,3 +56,8 @@ class Downloader:
             data = f.read()
             video = Video.from_json(data)
             video.file = path / f"{video.title}.{video.ext}"
+            return video
+
+    def check_exist(self, url):
+        return self.dir(url).exists()
+
