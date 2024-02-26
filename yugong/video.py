@@ -16,6 +16,8 @@ class Video:
     uploader: str
     ext: str
     file: Path
+    acodec: str
+    audio_file: Path = None
 
     def __str__(self):
         return self.title
@@ -36,6 +38,7 @@ class Video:
             channel_url=data["channel_url"],
             uploader=data["uploader"],
             ext=data["ext"],
+            acodec=data["acodec"],
             file=None
         )
 
